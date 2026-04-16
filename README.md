@@ -32,6 +32,10 @@ python app.py
 Then open:
 http://127.0.0.1:5000/
 
+## 📸 Demo
+<img width="1871" height="596" alt="Screenshot 2026-04-16 033637" src="https://github.com/user-attachments/assets/084623a2-6486-4ae1-b13c-7f15018adb79" />
+<img width="1466" height="580" alt="Screenshot 2026-04-16 033210" src="https://github.com/user-attachments/assets/81fe7675-ddbf-4c53-966a-5f149af6da24" />
+
 ⚠️ Limitations
 
 Uses static HTML parsing
