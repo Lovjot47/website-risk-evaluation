@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Risk Evaluation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        input {
+            padding: 8px;
+            width: 300px;
+        }
+
+        button {
+            padding: 8px 12px;
+        }
+
+        .low { color: green; }
+        .medium { color: orange; }
+        .high { color: red; }
+
+        .box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Website Risk Evaluation</h2>
+
+    <!-- 🔍 Search Form -->
+    <form method="POST">
+        <input 
+            type="text" 
+            name="url" 
+            placeholder="e.g. https://example.com" 
+            value="{{ url }}" 
+            required
+        >
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if report %}
+
+        <div class="box">
+
+            <!-- 🧠 Overall Risk -->
+            <h3>
+                Overall Risk:
+                {% if report["Overall Risk"] == "High Risk" %}
+                    <span class="high">{{ report["Overall Risk"] }}</span>
+                {% elif report["Overall Risk"] == "Medium Risk" %}
+                    <span class="medium">{{ report["Overall Risk"] }}</span>
+                {% else %}
+                    <span class="low">{{ report["Overall Risk"] }}</span>
+                {% endif %}
+            </h3>
+
+            <!-- 📊 Summary -->
+            <p><b>Summary:</b> {{ report["Summary"] }}</p>
+            <p><b>Final Decision:</b> {{ report["Decision"] }}</p>
+            <p><b>Risk Score:</b> {{ report["Score"] }}</p>
+
+            <!-- 📋 Findings -->
+            <h4>Detailed Findings:</h4>
+
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>Detected Element</th>
+        <th>External Evidence</th>
+        <th>Rule Triggered</th>
+        <th>Risk Category</th>
+        <th>Severity</th>
+        <th>Rationale</th>
+    </tr>
+
+    {% for item in report["Findings"] %}
+    <tr>
+        <td>{{ item["Detected Element"] }}</td>
+        <td>
+            {% for e in item["Matched External Evidence"] %}
+                {{ e }}<br>
+            {% endfor %}
+        </td>
+        <td>{{ item["Rule Triggered"] }}</td>
+        <td>{{ item["Risk Category"] }}</td>
+        <td>{{ item["Severity"] }}</td>
+        <td>{{ item["Rationale"] }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+            </ul>
+
+        </div>
+
+    {% endif %}
+
+</body>
+</html>
